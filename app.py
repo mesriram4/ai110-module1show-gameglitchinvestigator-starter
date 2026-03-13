@@ -5,10 +5,10 @@ def get_range_for_difficulty(difficulty: str):
     if difficulty == "Easy":
         return 1, 20
     if difficulty == "Normal":
-        return 1, 100
-    if difficulty == "Hard":
         return 1, 50
-    return 1, 100
+    if difficulty == "Hard":
+        return 1, 100
+    return 1, 100 #Remove this and run a ValueError test case just in case. 
 
 
 def parse_guess(raw: str):
@@ -36,7 +36,7 @@ def check_guess(guess, secret):
     try:
         if guess > secret:
             return "Too High", "📈 Go HIGHER!"
-        else:
+        if guess < secret:
             return "Too Low", "📉 Go LOWER!"
     except TypeError:
         g = str(guess)
@@ -44,7 +44,8 @@ def check_guess(guess, secret):
             return "Win", "🎉 Correct!"
         if g > secret:
             return "Too High", "📈 Go HIGHER!"
-        return "Too Low", "📉 Go LOWER!"
+        if g < secret: 
+            return "Too Low", "📉 Go LOWER!"
 
 
 def update_score(current_score: int, outcome: str, attempt_number: int):
@@ -78,8 +79,8 @@ difficulty = st.sidebar.selectbox(
 )
 
 attempt_limit_map = {
-    "Easy": 6,
-    "Normal": 8,
+    "Easy": 8,
+    "Normal": 6,
     "Hard": 5,
 }
 attempt_limit = attempt_limit_map[difficulty]
@@ -155,7 +156,7 @@ if submit:
     else:
         st.session_state.history.append(guess_int)
 
-        if st.session_state.attempts % 2 == 0:
+        if st.session_state.attempts % 2 == 0: #This is where the glitch is happening!
             secret = str(st.session_state.secret)
         else:
             secret = st.session_state.secret
