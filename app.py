@@ -1,7 +1,7 @@
 import random
 import streamlit as st
 
-def get_range_for_difficulty(difficulty: str):
+def get_range_for_difficulty(difficulty: str): #FIXME: Logic Breaks here 
     if difficulty == "Easy":
         return 1, 20
     if difficulty == "Normal":
@@ -9,6 +9,7 @@ def get_range_for_difficulty(difficulty: str):
     if difficulty == "Hard":
         return 1, 100
     return 1, 100 #Remove this and run a ValueError test case just in case. 
+#NOTE: Logic issue fixed 
 
 
 def parse_guess(raw: str):
@@ -29,15 +30,15 @@ def parse_guess(raw: str):
     return True, value, None
 
 
-def check_guess(guess, secret):
+def check_guess(guess, secret): #FIXME: Logic breaks here
     if guess == secret:
         return "Win", "🎉 Correct!"
 
     try:
         if guess > secret:
-            return "Too High", "📈 Go HIGHER!"
+            return "Too High", "📉 Go LOWER!"
         if guess < secret:
-            return "Too Low", "📉 Go LOWER!"
+            return "Too Low",  "📈 Go HIGHER!"
     except TypeError:
         g = str(guess)
         if g == secret:
@@ -108,7 +109,7 @@ if "history" not in st.session_state:
 st.subheader("Make a guess")
 
 st.info(
-    f"Guess a number between 1 and 100. "
+    f"Guess a number between {low} and {high}. "
     f"Attempts left: {attempt_limit - st.session_state.attempts}"
 )
 
@@ -134,7 +135,7 @@ with col3:
 
 if new_game:
     st.session_state.attempts = 0
-    st.session_state.secret = random.randint(1, 100)
+    st.session_state.secret = random.randint(low, high)
     st.success("New game started.")
     st.rerun()
 
@@ -148,7 +149,7 @@ if st.session_state.status != "playing":
 if submit:
     st.session_state.attempts += 1
 
-    ok, guess_int, err = parse_guess(raw_guess)
+    ok, guess_int, err = parse_guess(raw_guess) #FIXME: Logic breaks here.
 
     if not ok:
         st.session_state.history.append(raw_guess)
@@ -157,11 +158,13 @@ if submit:
         st.session_state.history.append(guess_int)
 
         if st.session_state.attempts % 2 == 0: #This is where the glitch is happening!
-            secret = str(st.session_state.secret)
-        else:
             secret = st.session_state.secret
+        else:
+            secret = st.session_state.secret #FIXME: Logic breaks here. 
 
         outcome, message = check_guess(guess_int, secret)
+
+        #NOTE: Logic fixed! (166 to 169)
 
         if show_hint:
             st.warning(message)
