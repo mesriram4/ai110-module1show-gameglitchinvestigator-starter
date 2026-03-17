@@ -25,9 +25,12 @@ It wrote the code, ran away, and now the game is unplayable.
 
 ## 📝 Document Your Experience
 
-- [ ] Describe the game's purpose.
-- [ ] Detail which bugs you found.
-- [ ] Explain what fixes you applied.
+- [ ] Describe the game's purpose: 
+	The purpose of this game is to guess the secret number the game generates. The game will reward you points based on how many guesses it takes for you to get the right answer. The game will also help you out by letting you know whether you need to go higher or lower in a guess. 
+- [ ] Detail which bugs you found: 
+	Some examples of bugs I found swapped ranges, swapped messages telling the user to go up or down for the wrong inputs, and unnecessary if/else statements incorrectly separating scores. 
+- [ ] Explain what fixes you applied: 
+	Based on the bugs I identified, I was able to correct the ranges, swap statements to their correct conditionals, and reduce unnecessary code to make sure that scores are distributed correctly. 
 
 ## 📸 Demo
 

@@ -1,6 +1,12 @@
 import random
 import streamlit as st
 
+"""
+Now what's going on: 
++ When I switch to a different level (normal to easy), the secret number doesn't change based on the range of that level. 
++ The game doesn't automatically update the score after submitting my answer, only starts updating after second answer. 
+"""
+
 def get_range_for_difficulty(difficulty: str): #FIXME: Logic Breaks here 
     if difficulty == "Easy":
         return 1, 20
@@ -41,7 +47,7 @@ def check_guess(guess, secret):
         if guess < secret:
             return "Too Low",  "📈 Go HIGHER!"  #Claude AI: Chat recognized bug and helped switch statements 
     except TypeError:
-        g = int(guess)
+        g = str(guess)
         if g == secret:
             return "Win", "🎉 Correct!"
         if g > secret:
@@ -59,10 +65,10 @@ def update_score(current_score: int, outcome: str, attempt_number: int):
             points = 10
         return current_score + points
 
-    if outcome == "Too High":
-        if attempt_number % 2 == 0:
-            return current_score + 5
+    if outcome == "Too High": #FIXME: Logic breaks here
         return current_score - 5
+    
+    # _____ NOTE: Logic issue for line 68 fixed ______
 
     if outcome == "Too Low":
         return current_score - 5
@@ -113,7 +119,7 @@ st.subheader("Make a guess")
 
 st.info(
     f"Guess a number between {low} and {high}. "
-    f"Attempts left: {attempt_limit - st.session_state.attempts}"
+    f"Attempts left: {attempt_limit}" if st.session_state.attempts == 0 else f"Attempts left: {attempt_limit - st.session_state.attempts}"
 )
 
 with st.expander("Developer Debug Info"):
