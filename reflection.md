@@ -10,10 +10,14 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
   + Medium should have a range of 1 to 50, and hard should have a range of 1  to 100. This wasn't the case when running the game for the first time. 
 
 - List at least two concrete bugs you noticed at the start  
+<<<<<<< HEAD
   (for example: "the secret number kept changing" or "the hints were backwards").
   + Interestingly, regardless of the number I guess, I'm getting the response "Go Higher". Even if I type in 100, I'm getting the message "Go Higher" 
   + Attepts tracker in the blue box vs. developer are not in line with each other.
   + The second time I ran it, my game is not running the same way it should be during it's first round. Even though it resets info for a new game, my game isn't accepting inputs, neither is it displaying hints after I submit an input. 
+=======
+  (for example: "the hints were backwards").
+>>>>>>> d28145213e029bd9f9244f5f8071e0985a5e266e
 
 ---
 
@@ -37,9 +41,7 @@ Answer each question in 3 to 5 sentences. Be specific and honest about what actu
 
 ## 4. What did you learn about Streamlit and state?
 
-- In your own words, explain why the secret number kept changing in the original app.
 - How would you explain Streamlit "reruns" and session state to a friend who has never used Streamlit?
-- What change did you make that finally gave the game a stable secret number?
 
 ---
 
