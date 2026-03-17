@@ -1,4 +1,29 @@
+import pytest
+from logic_utils import get_range_for_difficulty
 from logic_utils import check_guess
+
+
+# ___Test for get_range_for_difficulty___
+
+def test_easy_difficulty():
+    # Easy mode should return range (1, 20)
+    assert get_range_for_difficulty("Easy") == (1, 20)
+
+def test_normal_difficulty():
+    # Normal mode should return range (1, 50)
+    assert get_range_for_difficulty("Normal") == (1, 50)
+
+def test_hard_difficulty():
+    # Hard mode should return range (1, 100)
+    assert get_range_for_difficulty("Hard") == (1, 100)
+
+def test_invalid_difficulty():
+    # An unrecognized difficulty should raise ValueError
+    with pytest.raises(ValueError):
+        get_range_for_difficulty("Impossible")
+
+
+# ___Tests for check_guess___
 
 def test_winning_guess():
     # If the secret is 50 and guess is 50, it should be a win

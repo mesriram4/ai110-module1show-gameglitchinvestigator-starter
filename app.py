@@ -8,8 +8,9 @@ def get_range_for_difficulty(difficulty: str): #FIXME: Logic Breaks here
         return 1, 50
     if difficulty == "Hard":
         return 1, 100
-    return 1, 100 #Remove this and run a ValueError test case just in case. 
-#NOTE: Logic issue fixed 
+    else: 
+        raise ValueError("Invalid difficulty level") #Claude AI (Agent Mode): Suggested ValueError to raise when no difficulties are recognized
+#NOTE: Logic issue for function fixed!
 
 
 def parse_guess(raw: str):
@@ -30,23 +31,25 @@ def parse_guess(raw: str):
     return True, value, None
 
 
-def check_guess(guess, secret): #FIXME: Logic breaks here
+def check_guess(guess, secret):
     if guess == secret:
         return "Win", "🎉 Correct!"
 
     try:
         if guess > secret:
-            return "Too High", "📉 Go LOWER!"
+            return "Too High", "📉 Go LOWER!"  #Claude AI: Chat recognized bug and helped switch statements 
         if guess < secret:
-            return "Too Low",  "📈 Go HIGHER!"
+            return "Too Low",  "📈 Go HIGHER!"  #Claude AI: Chat recognized bug and helped switch statements 
     except TypeError:
-        g = str(guess)
+        g = int(guess)
         if g == secret:
             return "Win", "🎉 Correct!"
         if g > secret:
-            return "Too High", "📈 Go HIGHER!"
+            return "Too High", "📉 Go LOWER!" #Claude AI: Chat recognized bug and helped switch statements 
         if g < secret: 
-            return "Too Low", "📉 Go LOWER!"
+            return "Too Low", "📈 Go HIGHER!"  #Claude AI: Chat recognized bug and helped switch statements 
+
+#NOTE: Logic Error Fixed for function!
 
 
 def update_score(current_score: int, outcome: str, attempt_number: int):
